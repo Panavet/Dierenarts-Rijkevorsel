@@ -1,11 +1,18 @@
-
 <!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Winkelwagen - Dierenarts Rijkevorsel</title>
+    <title>Winkelwagen</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function showKraken() {
+            document.getElementById('kraken').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('kraken').style.display = 'none';
+                document.getElementById('checkout-form').submit();
+            }, 2000);
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -28,6 +35,7 @@
                     <th>Prijs</th>
                     <th>Aantal</th>
                     <th>Totaal</th>
+                    <th>Aanpassen</th>
                 </tr>
                 {% for item in cart_items %}
                     <tr>
@@ -35,20 +43,27 @@
                         <td>€{{ "%.2f" % item[2] }}</td>
                         <td>{{ item[3] }}</td>
                         <td>€{{ "%.2f" % (item[2] * item[3]) }}</td>
+                        <td>
+                            <form method="POST">
+                                <input type="hidden" name="product_id" value="{{ item[0] }}">
+                                <input type="number" name="quantity" min="1" value="{{ item[3] }}" required>
+                                <button type="submit">Update</button>
+                            </form>
+                        </td>
                     </tr>
                 {% endfor %}
                 <tr>
-                    <td colspan="3"><strong>Totaal:</strong></td>
+                    <td colspan="4"><strong>Totaal:</strong></td>
                     <td>€{{ "%.2f" % total }}</td>
                 </tr>
             </table>
-            <form method="POST" action="{{ url_for('checkout') }}">
-                <button type="submit">Afrekenen</button>
-            </form>
+            <button onclick="showKraken()">Afrekenen</button>
+            <div id="kraken" style="display:none; color:red; text-align:center; font-size:1.5em;">Release the Kraken!</div>
+            <form id="checkout-form" method="POST" action="{{ url_for('checkout') }}" style="display:none;"></form>
         {% else %}
             <p>Je winkelwagen is leeg.</p>
         {% endif %}
-        <a href="{{ url_for('index') }}">Terug naar shop</a>
+        <a href="{{ url_for('index') }}">Terug naar shop</a> | <a href="{{ url_for('logout') }}">Uitloggen</a>
     </main>
     <footer>
         <p>© 2025 Dierenarts Rijkevorsel - Kristof Van Hoye</p>

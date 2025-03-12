@@ -161,3 +161,21 @@ footer {
     bottom: 0;
     width: 100%;
 }
+.flash {
+    color: green;
+    text-align: center;
+}
+
+form {
+    margin: 20px 0;
+}
+
+form label, form input {
+    display: block;
+    margin: 5px auto;
+    text-align: center;
+}
+
+form button {
+    margin-top: 10px;
+}

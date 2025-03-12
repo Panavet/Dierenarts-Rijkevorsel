@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Registreren</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>WELKOM OP DE BEESTIGE PAGINA VAN</h1>
+        <h2>DIERENARTS RIJKEVORSEL - KRISTOF VAN HOYE</h2>
+    </header>
+    <main>
+        <h3>Registreren</h3>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="flash">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="POST">
+            <label>E-mail:</label><input type="email" name="email" required><br>
+            <label>Wachtwoord:</label><input type="password" name="password" required><br>
+            <button type="submit">Registreren</button>
+        </form>
+        <a href="{{ url_for('login') }}">Al een account? Log in</a>
+    </main>
+    <footer>
+        <p>© 2025 Dierenarts Rijkevorsel - Kristof Van Hoye</p>
+    </footer>
+</body>
+</html>
