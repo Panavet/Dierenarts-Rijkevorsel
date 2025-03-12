@@ -185,6 +185,6 @@ def logout():
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
-    if not os.path.exists('webshop.db'):
-        init_db()
+    # Always initialize the database to ensure tables exist
+    init_db()
     app.run(host='0.0.0.0', port=8080, debug=True)
