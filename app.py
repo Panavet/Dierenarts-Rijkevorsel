@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import sqlite3
 import os
 from mollie.api.client import Client
-from mollie.api.error import MollieError
+from mollie.api.error import Error as MollieError
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'  # Vervang in productie
