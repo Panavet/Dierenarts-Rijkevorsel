@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category }} - Dierenarts Rijkevorsel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>WELKOM OP DE BEESTIGE PAGINA VAN</h1>
+        <h2>DIERENARTS RIJKEVORSEL - KRISTOF VAN HOYE</h2>
+    </header>
+    <main>
+        <h3>{{ category }}</h3>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="flash">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class="product-grid">
+            {% for product in products %}
+                <div class="product">
+                    <img src="https://via.placeholder.com/150" alt="{{ product[1] }}">
+                    <h4>{{ product[1] }}</h4>
+                    <p>€{{ "%.2f" % product[2] }}</p>
+                    <p>Voorraad: {{ product[3] }}</p>
+                    <form method="POST" action="{{ url_for('add_to_cart') }}">
+                        <input type="hidden" name="product_id" value="{{ product[0] }}">
+                        <input type="number" name="quantity" min="1" max="{{ product[3] }}" value="1" required>
+                        <button type="submit">Toevoegen</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{{ url_for('index') }}">Terug</a> | <a href="{{ url_for('cart') }}">Winkelwagen</a>
+    </main>
+    <footer>
+        <p>© 2025 Dierenarts Rijkevorsel - Kristof Van Hoye</p>
+    </footer>
+</body>
+</html>
