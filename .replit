@@ -12,10 +12,18 @@ localPort = 5000
 externalPort = 80
 
 [workflows]
-runButton = "Run"
+runButton = "Flask"
 
 [[workflows.workflow]]
 name = "Run"
+author = 40440454
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python app.py"
+
+[[workflows.workflow]]
+name = "Flask"
 author = 40440454
 
 [[workflows.workflow.tasks]]
